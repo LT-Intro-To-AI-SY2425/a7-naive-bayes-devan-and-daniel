@@ -172,85 +172,91 @@ class BayesClassifier:
         # return a string of "positive" or "negative"
 
     def load_file(self, filepath: str) -> str:
-        """Loads text of given file
-
-        Args:
-            filepath - relative path to file to load
-
-        Returns:
-            text of the given file
-        """
-        with open(filepath, "r", encoding='utf8') as f:
-            return f.read()
-
+         """Loads text of given file
+ 
+         Args:
+             filepath - relative path to file to load
+ 
+         Returns:
+             text of the given file
+         """
+         with open(filepath, "r", encoding='utf8') as f:
+             return f.read()
+ 
     def save_dict(self, dict: Dict, filepath: str) -> None:
-        """Pickles given dictionary to a file with the given name
-
-        Args:
-            dict - a dictionary to pickle
-            filepath - relative path to file to save
-        """
-        print(f"Dictionary saved to file: {filepath}")
-        with open(filepath, "wb") as f:
-            pickle.Pickler(f).dump(dict)
-
+         """Pickles given dictionary to a file with the given name
+ 
+         Args:
+             dict - a dictionary to pickle
+             filepath - relative path to file to save
+         """
+         print(f"Dictionary saved to file: {filepath}")
+         with open(filepath, "wb") as f:
+             pickle.Pickler(f).dump(dict)
+ 
     def load_dict(self, filepath: str) -> Dict:
-        """Loads pickled dictionary stored in given file
-
-        Args:
-            filepath - relative path to file to load
-
-        Returns:
-            dictionary stored in given file
-        """
-        print(f"Loading dictionary from file: {filepath}")
-        with open(filepath, "rb") as f:
-            return pickle.Unpickler(f).load()
-
+         """Loads pickled dictionary stored in given file
+ 
+         Args:
+             filepath - relative path to file to load
+ 
+         Returns:
+             dictionary stored in given file
+         """
+         print(f"Loading dictionary from file: {filepath}")
+         with open(filepath, "rb") as f:
+             return pickle.Unpickler(f).load()
+ 
     def tokenize(self, text: str) -> List[str]:
-        """Splits given text into a list of the individual tokens in order
-
-        Args:
-            text - text to tokenize
-
-        Returns:
-            tokens of given text in order
-        """
-        tokens = []
-        token = ""
-        for c in text:
-            if (
-                re.match("[a-zA-Z0-9]", str(c)) != None
-                or c == "'"
-                or c == "_"
-                or c == "-"
-            ):
-                token += c
-            else:
-                if token != "":
-                    tokens.append(token.lower())
-                    token = ""
-                if c.strip() != "":
-                    tokens.append(str(c.strip()))
-
-        if token != "":
-            tokens.append(token.lower())
-        return tokens
-
+         """Splits given text into a list of the individual tokens in order
+ 
+         Args:
+             text - text to tokenize
+ 
+         Returns:
+             tokens of given text in order
+         """
+         tokens = []
+         token = ""
+         for c in text:
+             if (
+                 re.match("[a-zA-Z0-9]", str(c)) != None
+                 or c == "'"
+                 or c == "_"
+                 or c == "-"
+             ):
+                 token += c
+             else:
+                 if token != "":
+                     tokens.append(token.lower())
+                     token = ""
+                 if c.strip() != "":
+                     tokens.append(str(c.strip()))
+ 
+         if token != "":
+             tokens.append(token.lower())
+         return tokens
+ 
     def update_dict(self, words: List[str], freqs: Dict[str, int]) -> None:
-        """Updates given (word -> frequency) dictionary with given words list
-
-        By updating we mean increment the count of each word in words in the dictionary.
-        If any word in words is not currently in the dictionary add it with a count of 1.
-        (if a word is in words multiple times you'll increment it as many times
-        as it appears)
-
-        Args:
-            words - list of tokens to update frequencies of
-            freqs - dictionary of frequencies to update
-        """
-        # TODO: your work here
-        pass  # remove this line once you've implemented this method
+         """Updates given (word -> frequency) dictionary with given words list
+ 
+         By updating we mean increment the count of each word in words in the dictionary.
+         If any word in words is not currently in the dictionary add it with a count of 1.
+         (if a word is in words multiple times you'll increment it as many times
+         as it appears)
+ 
+         Args:
+             words - list of tokens to update frequencies of
+             freqs - dictionary of frequencies to update
+         """
+         # TODO: your work here
+         # print("update dict")
+         for word in words:
+             if word in freqs:
+                 freqs[word] += 1
+             else:
+                 freqs[word] = 1
+    pass  # remove this line once you've implemented this method
 
 
 if __name__ == "__main__":
